@@ -15,7 +15,9 @@ def shorten(longUrl, **kwargs):
 	
 	Parameters:
 		longUrl (required): URL to shorten
+		                    ie: http://cnn.com
 		keyword (optional): preferred keyword
+		                    ie: cnn
 	"""
   kwargs.update({
     'version': API_VERSION,
