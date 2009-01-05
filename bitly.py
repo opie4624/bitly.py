@@ -9,7 +9,14 @@ class BitlyAPIError(Exception):
   pass
 
 def shorten(longUrl, **kwargs):
-	"""Given a longUrl (http://cnn.com), returns a shorter one."""
+	"""
+	Given a longUrl, returns a shorter one using the optionally provided keyword if possible.
+	If the keyword is not available a standard hashed URL will be returned.
+	
+	Parameters:
+		longUrl (required): URL to shorten
+		keyword (optional): preferred keyword
+	"""
   kwargs.update({
     'version': API_VERSION,
     'format': 'json',
