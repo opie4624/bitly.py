@@ -27,7 +27,6 @@ def shorten(longUrl, **kwargs):
     'longUrl': longUrl,
   })
   url = API_BASE + '/shorten?' + urllib.urlencode(kwargs)
-  print url
   result = simplejson.load(urllib.urlopen(url))
   if 'ERROR' in result:
     raise BitlyAPIError, result['Error']
