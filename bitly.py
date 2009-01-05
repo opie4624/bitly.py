@@ -9,6 +9,7 @@ class BitlyAPIError(Exception):
   pass
 
 def shorten(longUrl, **kwargs):
+	"""Given a longUrl (http://cnn.com), returns a shorter one."""
   kwargs.update({
     'version': API_VERSION,
     'format': 'json',
@@ -25,4 +26,3 @@ def shorten(longUrl, **kwargs):
     return result['results'][longUrl]['shortUrl']
   else:
     return result['results'][longUrl]['shortKeywordUrl']
-
