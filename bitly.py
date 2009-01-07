@@ -9,6 +9,7 @@ class BitlyAPIError(Exception):
   pass
 
 def shorten(longUrl, **kwargs):
+<<<<<<< HEAD:bitly.py
 	"""
 	Given a longUrl, returns a shorter one using the optionally provided keyword if possible.
 	If the keyword is not available a standard hashed URL will be returned.
@@ -25,6 +26,18 @@ def shorten(longUrl, **kwargs):
 		                    ie: shorten('http://cnn.com', keyword='cnn')
 >>>>>>> 94612f5... skeleton of expand:bitly.py
 	"""
+=======
+  """
+  Given a longUrl, returns a shorter one using the optionally provided keyword if possible.
+  If the keyword is not available a standard hashed URL will be returned.
+  
+  Parameters:
+    longUrl (required): URL to shorten
+                        ie: shorten('http://cnn.com')
+    keyword (optional): preferred keyword
+                        ie: shorten('http://cnn.com', keyword='cnn')
+  """
+>>>>>>> 6f1f551... completed expand:bitly.py
   kwargs.update({
     'version': API_VERSION,
     'format': 'json',
@@ -42,18 +55,31 @@ def shorten(longUrl, **kwargs):
     return result['results'][longUrl]['shortKeywordUrl']
 
 def expand(**kwargs):
-	"""
-	Given a bit.ly url or hash(es), return the long source url(s).
-	
-	Parameters:
-	  shortUrl: a single URL to expand
-	            ie: expand('http://bit.ly/QJhM')
-	  hash: one or more URL hashes to expand
-	            ie: expand('QJhM,3el7')
-	"""
-	kwargs.update({
-		'version': API_VERSION,
-		'format': 'json',
-		'login': API_LOGIN,
-		'apiKey':API_KEY,
-	})
+  """
+  Given a bit.ly url or hash(es), return the long source url(s).
+  
+  Parameters:
+    shortUrl: a single URL to expand
+              ie: expand(shortUrl='http://bit.ly/QJhM')
+    hash: one or more URL hashes to expand
+              ie: expand(hash='QJhM,3el7')
+  """
+  kwargs.update({
+    'version': API_VERSION,
+    'format': 'json',
+    'login': API_LOGIN,
+    'apiKey':API_KEY,
+  })
+  
+  if not (kwargs.has_key('shortUrl') or kwargs.has_key('hash')):
+    raise BitlyAPIError, "You must provide either a shortUrl or hash."
+  if (kwargs.has_key('shortUrl') and kwargs.has_key('hash')):
+    raise BitlyAPIError, "You must provide either a shortUrl or hash, not both."
+  
+  url = API_BASE + '/expand?' + urllib.urlencode(kwargs)
+  result = simplejson.load(urllib.urlopen(url))
+  if 'ERROR' in result:
+    raise BitlyAPIError, result['errorMessage']
+  if kwargs.has_key
+  return result['results']
+
