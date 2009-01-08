@@ -65,3 +65,24 @@ def expand(**kwargs):
     return result['results']
   else:
     return result['results'][string.split(kwargs['shortUrl'], '/')[-1]]['longUrl']
+
+def info(**kwargs):
+  """ Given a bit.ly url or hash, return information about that page. """
+  kwargs.update({
+      'version': API_VERSION,
+      'format': 'json',
+      'login': API_LOGIN,
+      'apiKey': API_KEY,
+      })
+  
+  if not (kwargs.has_key('shortUrl') or kwargs.has_key('hash')):
+    raise BitlyAPIError, "You must provide either a shortUrl or hash."
+  if (kwargs.has_key('shortUrl') and kwargs.has_key('hash')):
+    raise BitlyAPIError, "You must provide either a shortUrl or hash, not both."
+  
+  url = API_BASE + '/info?' + urllib.urlencode(kwargs)
+  result = simplejson.load(urllib.urlopen(url))
+  if kwargs.has_key('hash'):
+    return result['results']
+  else:
+    return result['results'][string.split(kwargs['shortUrl'], '/')[-1]]
