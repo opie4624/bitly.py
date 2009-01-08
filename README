@@ -1,0 +1,128 @@
+Be sure to fill in your API key and login.
+
+Help on module bitly:
+
+NAME
+    bitly
+
+FILE
+    /home/akraut/Code/bitly/bitly.py
+
+CLASSES
+    exceptions.Exception(exceptions.BaseException)
+        BitlyAPIError
+    
+    class BitlyAPIError(exceptions.Exception)
+     |  Method resolution order:
+     |      BitlyAPIError
+     |      exceptions.Exception
+     |      exceptions.BaseException
+     |      __builtin__.object
+     |  
+     |  Data descriptors defined here:
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from exceptions.Exception:
+     |  
+     |  __init__(...)
+     |      x.__init__(...) initializes x; see x.__class__.__doc__ for signature
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes inherited from exceptions.Exception:
+     |  
+     |  __new__ = <built-in method __new__ of type object at 0x8145ea0>
+     |      T.__new__(S, ...) -> a new object with type S, a subtype of T
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from exceptions.BaseException:
+     |  
+     |  __delattr__(...)
+     |      x.__delattr__('name') <==> del x.name
+     |  
+     |  __getattribute__(...)
+     |      x.__getattribute__('name') <==> x.name
+     |  
+     |  __getitem__(...)
+     |      x.__getitem__(y) <==> x[y]
+     |  
+     |  __getslice__(...)
+     |      x.__getslice__(i, j) <==> x[i:j]
+     |      
+     |      Use of negative indices is not supported.
+     |  
+     |  __reduce__(...)
+     |  
+     |  __repr__(...)
+     |      x.__repr__() <==> repr(x)
+     |  
+     |  __setattr__(...)
+     |      x.__setattr__('name', value) <==> x.name = value
+     |  
+     |  __setstate__(...)
+     |  
+     |  __str__(...)
+     |      x.__str__() <==> str(x)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from exceptions.BaseException:
+     |  
+     |  __dict__
+     |  
+     |  args
+     |  
+     |  message
+     |      exception message
+
+FUNCTIONS
+    errors(**kwargs)
+        Get a list of API error codes.
+    
+    expand(**kwargs)
+        Given a bit.ly url or hash(es), return the long source url(s).
+        
+        Parameters:
+          shortUrl: a single URL to expand
+                    ie: expand(shortUrl='http://bit.ly/QJhM')
+          hash: one or more URL hashes to expand
+                    ie: expand(hash='QJhM,3el7')
+    
+    info(**kwargs)
+        Given a bit.ly url or hash, return information about that page.
+        
+        Parameters:
+          shortUrl: a single URL to get info for
+                    ie: expand(shortUrl='http://bit.ly/QJhM')
+          hash: one or more URL hashes to get info for
+                    ie: expand(hash='QJhM,3el7')
+          keys (optional): one or more keys to limit attributes about each document.
+                    ie: expand(hash='QJhM', keys='htmlTitle,users')
+    
+    shorten(longUrl, **kwargs)
+        Given a longUrl, returns a shorter one using the optionally provided keyword if possible.
+        If the keyword is not available a standard hashed URL will be returned.
+        
+        Parameters:
+          longUrl (required): URL to shorten
+                              ie: shorten('http://cnn.com')
+          keyword (optional): preferred keyword
+                              ie: shorten('http://cnn.com', keyword='cnn')
+    
+    stats(**kwargs)
+        Given a bit.ly url or hash, return traffic and referrer data.
+        
+        Parameters:
+          shortUrl: a single URL to get stats for
+                    ie: expand(shortUrl='http://bit.ly/QJhM')
+          hash: one or more URL hashes to get stats for
+                    ie: expand(hash='QJhM,3el7')
+
+DATA
+    API_BASE = 'http://api.bit.ly'
+    API_KEY = ''
+    API_LOGIN = ''
+    API_VERSION = '2.0.1'
+
+
