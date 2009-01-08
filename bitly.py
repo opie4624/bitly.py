@@ -67,7 +67,17 @@ def expand(**kwargs):
     return result['results'][string.split(kwargs['shortUrl'], '/')[-1]]['longUrl']
 
 def info(**kwargs):
-  """ Given a bit.ly url or hash, return information about that page. """
+  """
+  Given a bit.ly url or hash, return information about that page.
+  
+  Parameters:
+    shortUrl: a single URL to get info for
+              ie: expand(shortUrl='http://bit.ly/QJhM')
+    hash: one or more URL hashes to get info for
+              ie: expand(hash='QJhM,3el7')
+    keys (optional): one or more keys to limit attributes about each document.
+              ie: expand(hash='QJhM', keys='htmlTitle,users')
+  """
   kwargs.update({
       'version': API_VERSION,
       'format': 'json',
