@@ -1,4 +1,4 @@
-import simplejson, urllib
+import simplejson, urllib, string
 
 API_KEY = ''
 API_LOGIN = ''
@@ -61,6 +61,7 @@ def expand(**kwargs):
   result = simplejson.load(urllib.urlopen(url))
   if 'ERROR' in result:
     raise BitlyAPIError, result['errorMessage']
-  if kwargs.has_key
-  return result['results']
-
+  if kwargs.has_key('hash'):
+    return result['results']
+  else:
+    return result['results'][string.split(kwargs['shortUrl'], '/')[-1]]['longUrl']
