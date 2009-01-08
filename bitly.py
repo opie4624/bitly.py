@@ -125,3 +125,15 @@ def stats(**kwargs):
     return result['results']
   else:
     return result['results'][string.split(kwargs['shortUrl'], '/')[-1]]
+
+def errors(**kwargs):
+  """ Get a list of API error codes. """
+  kwargs.update({
+      'version': API_VERSION,
+      'format': 'json',
+      'login': API_LOGIN,
+      'apiKey': API_KEY,
+      })
+  url = API_BASE + '/errors?' +urllib.urlencode(kwargs)
+  result = simplejson.load(urllib.urlopen(url))
+  return result['results']
