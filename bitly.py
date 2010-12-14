@@ -2,8 +2,7 @@ import simplejson, urllib, string
 
 API_KEY = ''
 API_LOGIN = ''
-API_VERSION = '2.0.1'
-API_BASE = 'http://api.bit.ly'
+API_BASE = 'http://api.bit.ly/v3'
 
 class BitlyAPIError(Exception):
   pass
@@ -16,11 +15,14 @@ def shorten(longUrl, **kwargs):
   Parameters:
     longUrl (required): URL to shorten
                         ie: shorten('http://cnn.com')
-    keyword (optional): preferred keyword
-                        ie: shorten('http://cnn.com', keyword='cnn')
+    domain (optional):  sets the preferred domain (j.mp or bit.ly <default is bit.ly>)
+                        ie: shorten('http://cnn.com', domain='j.mp')
+    x_login (optional): sets the end users login and API key when making requests
+    x_apiKey (optional):on behalf of another bit.ly user.
+                        ie: shorten('http://cnn.com', x_login='bitly', x_apiKey='ABC')
+                            will add this shortening to the history of user 'bitly'
   """
   kwargs.update({
-    'version': API_VERSION,
     'format': 'json',
     'login': API_LOGIN,
     'apiKey': API_KEY,
@@ -30,10 +32,7 @@ def shorten(longUrl, **kwargs):
   result = simplejson.load(urllib.urlopen(url))
   if 'ERROR' in result:
     raise BitlyAPIError, result['errorMessage']
-  if result['results'][longUrl]['shortKeywordUrl'] == "":
-    return result['results'][longUrl]['shortUrl']
-  else:
-    return result['results'][longUrl]['shortKeywordUrl']
+  return result['data']['url']
 
 def expand(**kwargs):
   """
