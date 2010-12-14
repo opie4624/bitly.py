@@ -65,6 +65,31 @@ def expand(**kwargs):
   else:
     return result['results'][string.split(kwargs['shortUrl'], '/')[-1]]['longUrl']
 
+def validate(x_login, x_apiKey, **kwargs):
+  """
+  Given an end users's login and API Key, determine that the pair is valid.
+  
+  Parameters:
+    x_login (optional):   sets the end user's login
+    x_apiKey (optional):  sets the end user's API key
+  """
+  kwargs.update({
+    'format': 'json',
+    'login': API_LOGIN,
+    'apiKey':API_KEY,
+    'x_login': x_login,
+    'x_apiKey': x_apiKey,
+  })
+  if not (kwargs.has_key('x_login') and kwargs.has_key('x_apiKey')):
+    raise BitlyAPIError, "You must provide both the end user's login and API key."
+  
+  url = API_BASE + '/validate?' + urllib.urlencode(kwargs)
+  result = simplejson.load(urllib.urlopen(url))
+  if result['data']['valid'] == 1:
+    return True
+  else:
+    return False
+
 def info(**kwargs):
   """
   Given a bit.ly url or hash, return information about that page.
